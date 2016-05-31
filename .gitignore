@@ -1,15 +1,11 @@
 # Dependency directory
 node_modules
 
-# Sublime workspace configuration
-sftp-configuration.json
-
 # Secret
 *.pub
 *.pem
 *.ppk
-config/credentials.js
-config/firebase.json
+configs/**/credential.*
 
 # Log
 *.log

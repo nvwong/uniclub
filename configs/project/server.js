@@ -11,7 +11,7 @@ if (process.env.TRAVIS) {
     host: {
       development: 'http://localhost:3000',
       test: 'http://localhost:5566',
-      production: 'https://express-react-hmr-boilerplate.herokuapp.com',
+      production: 'https://uniclub123.herokuapp.com',
     },
     jwt: {
       authentication: {

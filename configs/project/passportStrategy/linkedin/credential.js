@@ -16,6 +16,6 @@ module.exports = {
   production: {
     clientID: '819xll0ukavtnj',
     clientSecret: 'BjuhFbSRtxjV9QyZ',
-    callbackURL: 'https://express-react-hmr-boilerplate.herokuapp.com/auth/linkedin/callback',
+    callbackURL: 'https://uniclub123.herokuapp.com/auth/linkedin/callback',
   },
 };

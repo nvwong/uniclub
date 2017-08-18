@@ -49,9 +49,9 @@
     "passport"
   ],
   "bugs": {
-    "url": "https://github.com/gocreating/express-react-hmr-boilerplate/issues"
+    "url": "https://github.com/nvwong/uniclub/issues"
   },
-  "homepage": "https://github.com/gocreating/express-react-hmr-boilerplate",
+  "homepage": "https://github.com/nvwong/uniclub",
   "devDependencies": {
     "async": "^2.0.0-rc.3",
     "babel-core": "^6.3.15",

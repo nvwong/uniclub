@@ -1,0 +1,15 @@
+@import "./sass-variables";
+
+.rwd-background {
+  p {
+    color: white;
+    background-color: green;
+
+    @media screen and (min-width: $break-small) {
+      background-color: red;
+    }
+    @media screen and (min-width: $break-large) {
+      background-color: black;
+    }
+  }
+}

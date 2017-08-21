@@ -13,6 +13,7 @@ import { Recaptcha } from '../../fields/bases';
 import {
   BsInput as Input,
   BsCheckbox as Checkbox,
+  BsRadio as Radio,
 } from '../../fields/adapters';
 import {
   BsForm as Form,
@@ -28,20 +29,32 @@ const validate = (values) => {
   //   errors.email = 'Not an email';
   // }
 
+  if (!values.username) {
+    errors.username = 'Required';
+  }
+
   if (!values.email) {
     errors.email = 'Required';
+  }
+
+  if (!values.uniemail) {
+    errors.uniemail = 'Required';
   }
 
   if (!values.password) {
     errors.password = 'Required';
   }
 
-  if (!values.isAgreeTerms) {
-    errors.isAgreeTerms = 'Required';
+  if (!values.confirmpassword) {
+    errors.confirmpassword = 'Required';
   }
 
   if (configs.recaptcha && !values.recaptcha) {
     errors.recaptcha = 'Required';
+  }
+
+  if (values.password != values.confirmpassword) {
+    errors.confirmpassword = 'Password not match';
   }
 
   return errors;
@@ -93,12 +106,54 @@ class RegisterForm extends Component {
       <Form onSubmit={handleSubmit(this.handleSubmit)}>
         {submitFailed && error && (<Alert bsStyle="danger">{error}</Alert>)}
         <Field
-          name="name"
+          name="username"
           component={FormField}
-          label="Name"
+          label="Username"
           adapter={Input}
           type="text"
-          placeholder="Name"
+          placeholder="Username"
+        />
+        <Field
+          name="uid"
+          component={FormField}
+          label="UID"
+          adapter={Input}
+          type="number"
+          placeholder="UID"
+        />
+        <Field
+          name="lastname"
+          component={FormField}
+          label="Last Name"
+          adapter={Input}
+          type="text"
+          placeholder="Last Name"
+        />
+        <Field
+          name="firstname"
+          component={FormField}
+          label="First Name"
+          adapter={Input}
+          type="text"
+          placeholder="Frist Name"
+        />
+        <Field
+          name="gender"
+          component={FormField}
+          label="Gender"
+          adapter={Radio}
+          style={{
+            float: 'left',
+            paddingRight: 20,
+            marginTop: 10,
+          }}
+          options={[{
+            label: 'Male',
+            value: 'male',
+          }, {
+            label: 'Female',
+            value: 'female',
+          }]}
         />
         <Field
           name="email"
@@ -109,6 +164,30 @@ class RegisterForm extends Component {
           placeholder="Email"
         />
         <Field
+          name="uniemail"
+          component={FormField}
+          label="University Email"
+          adapter={Input}
+          type="text"
+          placeholder="University Email"
+        />
+        <Field
+          name="curriculum"
+          component={FormField}
+          label="Curriculum"
+          adapter={Input}
+          type="text"
+          placeholder="Curriculum"
+        />
+        <Field
+          name="phone"
+          component={FormField}
+          label="Contact Number"
+          adapter={Input}
+          type="number"
+          placeholder="Contact Number"
+        />
+        <Field
           name="password"
           component={FormField}
           label="Password"
@@ -117,11 +196,12 @@ class RegisterForm extends Component {
           placeholder="Password"
         />
         <Field
-          name="isAgreeTerms"
+          name="confirmpassword"
           component={FormField}
-          label=""
-          adapter={Checkbox}
-          text={<span>I agree the <a href="#">terms</a></span>}
+          label="Confirm Password"
+          adapter={Input}
+          type="password"
+          placeholder="Confirm Password"
         />
         <Field
           name="recaptcha"

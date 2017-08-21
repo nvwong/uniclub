@@ -1,11 +1,11 @@
 module.exports = {
   development: {
-    siteKey: '6LfQGgoUAAAAAANHp6AvQOYD81JU9GnThpiIK7pH',
+    siteKey: '6LeQKC0UAAAAAD54esRxwWij6ulP1ALQKmTAOr1R',
   },
   test: {
-    siteKey: '6LfQGgoUAAAAAANHp6AvQOYD81JU9GnThpiIK7pH',
+    siteKey: '6LeQKC0UAAAAAD54esRxwWij6ulP1ALQKmTAOr1R',
   },
   production: {
-    siteKey: '6LeoHAoUAAAAAHKlo43OuPREJb22GLmik2HSaFC1',
+    siteKey: '6LcalC0UAAAAAH_BpXU4alP3XoONbdFxbNDhKpkU',
   },
 };

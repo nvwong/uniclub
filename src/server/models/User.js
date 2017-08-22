@@ -18,7 +18,11 @@ const hashPassword = (rawPassword = '') => {
 };
 
 let UserSchema = new mongoose.Schema({
-  name: String,
+  username: String,
+  uid: Number,
+  lastname: String,
+  firstname: String,
+  gender: String,
   email: {
     value: {
       type: String,
@@ -30,6 +34,9 @@ let UserSchema = new mongoose.Schema({
     },
     verifiedAt: Date,
   },
+  uniemail: String,
+  curriculum: String,
+  phone: Number,
   password: {
     type: String,
     // there is no password for a social account
@@ -96,7 +103,7 @@ UserSchema.methods.toResetPasswordToken = function(cb) {
 UserSchema.methods.toAuthenticationToken = function(cb) {
   const user = {
     _id: this._id,
-    name: this.name,
+    username: this.username,
     email: this.email,
   };
   const token = jwt.sign(user, configs.jwt.authentication.secret, {

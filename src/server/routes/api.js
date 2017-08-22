@@ -11,6 +11,7 @@ import mailController from '../controllers/mail';
 import formValidationController from '../controllers/formValidation';
 import localeController from '../controllers/locale';
 import todoController from '../controllers/todo';
+import userlistController from '../controllers/userlist';
 
 export default ({ app }) => {
   // user
@@ -116,4 +117,7 @@ export default ({ app }) => {
   app.post('/api/todos', bodyParser.json, todoController.create);
   app.put('/api/todos/:id', bodyParser.json, todoController.update);
   app.delete('/api/todos/:id', todoController.remove);
+
+  // userlist
+  app.get('/api/userlist', userlistController.list);
 };

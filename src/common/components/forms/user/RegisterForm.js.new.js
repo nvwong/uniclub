@@ -29,32 +29,20 @@ const validate = (values) => {
   //   errors.email = 'Not an email';
   // }
 
-  if (!values.username) {
-    errors.username = 'Required';
-  }
-
   if (!values.email) {
     errors.email = 'Required';
-  }
-
-  if (!values.uniemail) {
-    errors.uniemail = 'Required';
   }
 
   if (!values.password) {
     errors.password = 'Required';
   }
 
-  if (!values.confirmpassword) {
-    errors.confirmpassword = 'Required';
+  if (!values.isAgreeTerms) {
+    errors.isAgreeTerms = 'Required';
   }
 
   if (configs.recaptcha && !values.recaptcha) {
     errors.recaptcha = 'Required';
-  }
-
-  if (values.password != values.confirmpassword) {
-    errors.confirmpassword = 'Password not match';
   }
 
   return errors;
@@ -135,7 +123,7 @@ class RegisterForm extends Component {
           label="First Name"
           adapter={Input}
           type="text"
-          placeholder="First Name"
+          placeholder="Frist Name"
         />
         <Field
           name="gender"
@@ -156,12 +144,12 @@ class RegisterForm extends Component {
           }]}
         />
         <Field
-          name="email"
+          name="useremail"
           component={FormField}
-          label="Email"
+          label="Email Address"
           adapter={Input}
           type="text"
-          placeholder="Email"
+          placeholder="Your Email"
         />
         <Field
           name="uniemail"
@@ -180,14 +168,6 @@ class RegisterForm extends Component {
           placeholder="Curriculum"
         />
         <Field
-          name="phone"
-          component={FormField}
-          label="Contact Number"
-          adapter={Input}
-          type="number"
-          placeholder="Contact Number"
-        />
-        <Field
           name="password"
           component={FormField}
           label="Password"
@@ -196,12 +176,12 @@ class RegisterForm extends Component {
           placeholder="Password"
         />
         <Field
-          name="confirmpassword"
+          name="phone"
           component={FormField}
-          label="Confirm Password"
+          label="Contact Number"
           adapter={Input}
-          type="password"
-          placeholder="Confirm Password"
+          type="number"
+          placeholder="Contact Number"
         />
         <Field
           name="recaptcha"

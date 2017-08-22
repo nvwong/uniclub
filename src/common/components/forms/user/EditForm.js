@@ -16,8 +16,8 @@ import {
 export const validate = (values) => {
   const errors = {};
 
-  if (!values.name) {
-    errors.name = 'Required';
+  if (!values.username) {
+    errors.username = 'Required';
   }
 
   return errors;
@@ -34,7 +34,12 @@ class EditForm extends Component {
     let { initialize } = this.props;
 
     initialize({
-      name: user.name,
+      username: user.username,
+      lastname: user.lastname,
+      firstname: user.firstname,
+      uniemail: user.uniemail,
+      curriculum: user.curriculum,
+      phone: user.phone,
     });
   }
 
@@ -85,13 +90,54 @@ class EditForm extends Component {
         {submitSucceeded && (<Alert bsStyle="success">Profile Saved</Alert>)}
         {submitFailed && error && (<Alert bsStyle="danger">{error}</Alert>)}
         <Field
-          name="name"
+          name="username"
           component={FormField}
-          label="Name"
+          label="Username"
           adapter={Input}
           type="text"
-          placeholder="Name"
+          placeholder="Username"
         />
+        <Field
+          name="lastname"
+          component={FormField}
+          label="Last Name"
+          adapter={Input}
+          type="text"
+          placeholder="Last Name"
+        />
+        <Field
+          name="firstname"
+          component={FormField}
+          label="First Name"
+          adapter={Input}
+          type="text"
+          placeholder="First Name"
+        />
+        <Field
+          name="uniemail"
+          component={FormField}
+          label="University Email"
+          adapter={Input}
+          type="text"
+          placeholder="University Email"
+        />
+        <Field
+          name="curriculum"
+          component={FormField}
+          label="Curriculum"
+          adapter={Input}
+          type="text"
+          placeholder="Curriculum"
+        />
+        <Field
+          name="phone"
+          component={FormField}
+          label="Contact Number"
+          adapter={Input}
+          type="number"
+          placeholder="Contact Number"
+        />
+
         <FormFooter>
           <Button type="submit" disabled={pristine || submitting || invalid}>
             Save

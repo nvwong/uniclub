@@ -35,10 +35,17 @@ export default {
         res.errors([Errors.USER_EXISTED]);
       } else {
         const user = User({
-          name: req.body.name,
+          username: req.body.username,
+          uid: req.body.uid,
+          lastname: req.body.lastname,
+          firstname: req.body.firstname,
+          gender: req.body.gender,
           email: {
             value: req.body.email,
           },
+          uniemail: req.body.uniemail,
+          curriculum: req.body.curriculum,
+          phone: req.body.phone,
           password: req.body.password,
           nonce: {
             verifyEmail: Math.random(),
@@ -144,7 +151,12 @@ export default {
   update(req, res) {
     let { user } = req;
     let modifiedUser = filterAttribute(req.body, [
-      'name',
+      'username',
+      'lastname',
+      'firstname',
+      'uniemail',
+      'curriculum',
+      'phone',
       'avatarURL',
     ]);
 

@@ -7,13 +7,14 @@ import todoAPI from '../../../api/todo';
 import { pushErrors } from '../../../actions/errorActions';
 import { setCrrentPage } from '../../../actions/pageActions';
 import {
-  setUserlist,
-  removeUser,
-} from '../../../actions/userlistActions';
+  setTodos,
+  addTodo,
+  removeTodo,
+} from '../../../actions/todoActions';
 import PageLayout from '../../layouts/PageLayout';
 import Pager from '../../utils/BsPager';
 
-class UserItem extends Component {
+class TodoItem extends Component {
   constructor() {
     super();
     this.state = {

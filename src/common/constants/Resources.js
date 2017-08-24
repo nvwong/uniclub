@@ -1,5 +1,5 @@
 export default {
   USER: 'USER',
   TODO: 'TODO',
-  USERLIST: 'USERLIST',
+  TODO2: 'TODO2',
 };

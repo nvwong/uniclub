@@ -11,7 +11,8 @@ import mailController from '../controllers/mail';
 import formValidationController from '../controllers/formValidation';
 import localeController from '../controllers/locale';
 import todoController from '../controllers/todo';
-import userlistController from '../controllers/userlist';
+import todo2Controller from '../controllers/todo2';
+
 
 export default ({ app }) => {
   // user
@@ -118,6 +119,12 @@ export default ({ app }) => {
   app.put('/api/todos/:id', bodyParser.json, todoController.update);
   app.delete('/api/todos/:id', todoController.remove);
 
+  // todo2
+  app.get('/api/todos2', todo2Controller.list);
+  app.post('/api/todos2', bodyParser.json, todo2Controller.create);
+  app.put('/api/todos2/:id', bodyParser.json, todo2Controller.update);
+  app.delete('/api/todos2/:id', todo2Controller.remove);
+
   // userlist
-  app.get('/api/userlist', userlistController.list);
+ // app.get('/api/userlist', userlistController.list);
 };

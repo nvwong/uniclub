@@ -50,6 +50,12 @@ export default {
     title: 'User Existed',
     detail: 'This user is already registered.',
   },
+  [ErrorCodes.USER_NOT_EXIST]: {
+    code: ErrorCodes.USER_NOT_EXIST,
+    status: 400,
+    title: 'User Does Not Exist',
+    detail: 'This user does not exist.',
+  },
   [ErrorCodes.TOKEN_REUSED]: {
     code: ErrorCodes.TOKEN_REUSED,
     status: 400,

@@ -12,7 +12,7 @@ import formValidationController from '../controllers/formValidation';
 import localeController from '../controllers/locale';
 import todoController from '../controllers/todo';
 import todo2Controller from '../controllers/todo2';
-
+import eventsController from '../controllers/events';
 
 export default ({ app }) => {
   // user
@@ -62,9 +62,17 @@ export default ({ app }) => {
     userController.resetPassword
   );
   app.get('/api/users/logout', userController.logout);
+  app.get('/api/users/username/edit', authRequired, userController.readAny);
   app.get('/api/users/me', authRequired, userController.readSelf);
   app.put('/api/users/me',
     authRequired,
+    bodyParser.json,
+    validate.form('user/EditForm'),
+    userController.update
+  );
+  app.put('/api/users/edit',
+    authRequired,
+    roleRequired([Roles.ADMIN]),
     bodyParser.json,
     validate.form('user/EditForm'),
     userController.update
@@ -125,6 +133,9 @@ export default ({ app }) => {
   app.put('/api/todos2/:id', bodyParser.json, todo2Controller.update);
   app.delete('/api/todos2/:id', todo2Controller.remove);
 
-  // userlist
- // app.get('/api/userlist', userlistController.list);
+  // Events
+  app.get('/api/events', eventsController.list);
+  app.post('/api/events', bodyParser.json, eventsController.create);
+  app.put('/api/events', bodyParser.json, eventsController.update);
+  app.delete('/api/events', eventsController.remove);
 };

@@ -137,7 +137,7 @@ class ListPage extends Component {
         throw err;
       })
       .then((json) => {
-        dispatch(addTodo(json.todo));
+        dispatch(addTodo(json.todo2));
         this.refs.todotext.value = '';
       });
   }

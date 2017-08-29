@@ -15,7 +15,7 @@ export default {
     User.paginate({ page: req.query.page }, handleDbError(res)((page) => {
       User
         .find({})
-        .sort({ createdAt: 'desc' })
+        .sort({ createdAt: 'asc' })
         .limit(page.limit)
         .skip(page.skip)
         .exec(handleDbError(res)((users) => {
@@ -146,6 +146,23 @@ export default {
     res.json({
       user: req.user,
     });
+  },
+
+  readAny(req, res) {
+    console.log('running readAny');
+    User.findOne({
+      'username': req.user.username,
+    }, handleDbError(res)((user) => {
+      if (!user) {
+        res.errors([Errors.USER_NOT_EXIST]);
+      } else {
+        console.log('user found');
+        res.json({
+          user: req.user,
+        });
+      }
+    }),
+    );
   },
 
   update(req, res) {

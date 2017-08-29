@@ -11,3 +11,7 @@ export let todo2Schema = new Schema('todo2', {
 export let userSchema = new Schema('users', {
   idAttribute: '_id',
 });
+
+export let eventSchema = new Schema('events', {
+  idAttribute: '_id',
+});

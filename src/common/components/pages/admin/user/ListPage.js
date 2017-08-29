@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router';
+import Button from 'react-bootstrap/lib/Button';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import PageHeader from 'react-bootstrap/lib/PageHeader';
@@ -68,9 +70,10 @@ class ListPage extends Component {
               <th>ID</th>
               <th>Avatar</th>
               <th>Name</th>
+              <th>Username</th>
               <th>Email</th>
               <th>Role</th>
-              <th>Created At</th>
+              <th>Edit</th>
             </tr>
           </thead>
           <tbody>
@@ -85,10 +88,15 @@ class ListPage extends Component {
                     }}
                   />
                 </td>
-                <td>{user.name}</td>
+                <td>{user.firstname} {user.lastname}</td>
+                <td>{user.username}</td>
                 <td>{user.email.value}</td>
                 <td>{user.role}</td>
-                <td>{user.createdAt}</td>
+                <td>
+                  <Link to={`/user/${user.username}/edit`} params={ user }>
+                    <Button bsStyle="primary">Edit</Button>
+                  </Link>
+                </td>
               </tr>
             ))}
           </tbody>

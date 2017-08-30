@@ -13,6 +13,7 @@ export default (store) => ({
         require('./userlist').default(store),
         require('./todo').default(store),
         require('./demo').default(store),
+        require('./events').default(store),
         require('./notFound').default(store),
       ]);
     });

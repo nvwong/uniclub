@@ -62,6 +62,9 @@ class Navigation extends Component {
               <NavLink to="/userlist">
                 User List
               </NavLink>
+              <NavLink to="/events">
+                Events
+              </NavLink>
               <NavLink to="/does/not/exist">
                 404
               </NavLink>

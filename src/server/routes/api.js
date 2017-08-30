@@ -12,7 +12,7 @@ import formValidationController from '../controllers/formValidation';
 import localeController from '../controllers/locale';
 import todoController from '../controllers/todo';
 import todo2Controller from '../controllers/todo2';
-import eventsController from '../controllers/events';
+import eventController from '../controllers/event';
 
 export default ({ app }) => {
   // user
@@ -134,8 +134,8 @@ export default ({ app }) => {
   app.delete('/api/todos2/:id', todo2Controller.remove);
 
   // Events
-  app.get('/api/events', eventsController.list);
-  app.post('/api/events', bodyParser.json, eventsController.create);
-  app.put('/api/events', bodyParser.json, eventsController.update);
-  app.delete('/api/events', eventsController.remove);
+  app.get('/api/events', eventController.list);
+  app.post('/api/events', bodyParser.json, eventController.create);
+  app.put('/api/events', bodyParser.json, eventController.update);
+  app.delete('/api/events', eventController.remove);
 };

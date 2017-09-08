@@ -14,6 +14,7 @@ export default (store) => ({
         require('./todo').default(store),
         require('./demo').default(store),
         require('./events').default(store),
+        require('./search').default(store),
         require('./notFound').default(store),
       ]);
     });

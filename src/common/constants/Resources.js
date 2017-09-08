@@ -3,4 +3,5 @@ export default {
   TODO: 'TODO',
   TODO2: 'TODO2',
   EVENTS: 'EVENTS',
+  SEARCH: 'SEARCH',
 };

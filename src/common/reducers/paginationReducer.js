@@ -150,6 +150,8 @@ let paginationReducer = combineReducers({
   todos: paginate(Resources.TODO),
   todo2: paginate(Resources.TODO2),
   users: paginate(Resources.USER),
+  events: paginate(Resources.EVENTS),
+  search: paginate(Resources.SEARCH),
 });
 
 export default paginationReducer;

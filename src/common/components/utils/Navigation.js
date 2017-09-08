@@ -65,6 +65,9 @@ class Navigation extends Component {
               <NavLink to="/events">
                 Events
               </NavLink>
+              <NavLink to="/search">
+                Search
+              </NavLink>
               <NavLink to="/does/not/exist">
                 404
               </NavLink>

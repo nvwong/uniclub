@@ -103,7 +103,7 @@ class EventList extends Component {
     );
   }
 }
-
+// export default EventList;
 export default connect(({ apiEngine, pagination, entity }) => {
   let { page } = pagination.events;
   let eventPages = pagination.events.pages[page.current] || { ids: [] };

@@ -8,7 +8,7 @@ import eventAPI from '../../../api/event';
 import { pushErrors } from '../../../actions/errorActions';
 import { setCrrentPage } from '../../../actions/pageActions';
 import { setEvents } from '../../../actions/eventsActions';
-import PageLayout from '../../layouts/AdminPageLayout';
+import PageLayout from '../../layouts/PageLayout';
 import Pager from '../../utils/BsPager';
 
 class EventList extends Component {
@@ -61,7 +61,7 @@ class EventList extends Component {
 
     return (
       <PageLayout>
-        <PageHeader>Event List ({`${page.current} / ${page.total}`})
+        <PageHeader>Events List ({`${page.current} / ${page.total}`})
         </PageHeader>
         <Table striped bordered>
           <thead>
@@ -96,14 +96,14 @@ class EventList extends Component {
           </tbody>
         </Table>
         <Pager
-          page={page}
+          page={ page }
           onPageChange={this.handlePageChange}
         />
       </PageLayout>
     );
   }
-}
-// export default EventList;
+};
+
 export default connect(({ apiEngine, pagination, entity }) => {
   let { page } = pagination.events;
   let eventPages = pagination.events.pages[page.current] || { ids: [] };

@@ -37,4 +37,5 @@ let EventSchema = new mongoose.Schema({
 
 EventSchema.plugin(paginatePlugin);
 
-export default mongoose.model('Events', EventSchema);
+let Events = mongoose.model('Events', EventSchema);
+export default Events;

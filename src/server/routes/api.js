@@ -13,6 +13,7 @@ import localeController from '../controllers/locale';
 import todoController from '../controllers/todo';
 import todo2Controller from '../controllers/todo2';
 import eventController from '../controllers/event';
+import searchController from '../controllers/search';
 
 export default ({ app }) => {
   // user
@@ -138,4 +139,7 @@ export default ({ app }) => {
   app.post('/api/events', bodyParser.json, eventController.create);
   app.put('/api/events', bodyParser.json, eventController.update);
   app.delete('/api/events', eventController.remove);
+
+  // Search
+  app.get('/api/search', searchController.list);
 };

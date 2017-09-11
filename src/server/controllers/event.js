@@ -78,12 +78,6 @@ export default {
     }));
   },
 
-  search(req, res) {
-    Events.find({ $eq: req.queryString }, handleError(res)(() => {
-      res.json({});
-    }));
-  },
-
   updatePosterURL(req, res) {
     let { oneEvent } = req;
     let modifiedEvent = filterAttribute(req.body, ['avatarURL']);

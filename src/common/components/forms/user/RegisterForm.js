@@ -53,7 +53,7 @@ const validate = (values) => {
     errors.recaptcha = 'Required';
   }
 
-  if (values.password != values.confirmpassword) {
+  if (values.password !== values.confirmpassword) {
     errors.confirmpassword = 'Password not match';
   }
 

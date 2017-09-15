@@ -1,15 +1,17 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
+import PageHeader from 'react-bootstrap/lib/PageHeader';
+import Table from 'react-bootstrap/lib/Table';
 import Resources from '../../../constants/Resources';
 import searchAPI from '../../../api/search';
-import PageHeader from 'react-bootstrap/lib/PageHeader';
-import PageLayout from '../../layouts/PageLayout';
-import Pager from '../../utils/BsPager';
 import { pushErrors } from '../../../actions/errorActions';
 import { setCrrentPage } from '../../../actions/pageActions';
+import { setSearch } from '../../../actions/searchActions';
+import PageLayout from '../../layouts/PageLayout';
+import Pager from '../../utils/BsPager';
 import SearchBar from './SearchBar';
-import { setSearchItems } from '../../../actions/searchActions';
+// import Autosuggest from 'react-autosuggest';
 import './styles.css';
 import './styles.scss';
 
@@ -47,19 +49,19 @@ class SearchPage extends Component {
   _fetchSearchItems(page) {
     let { dispatch, apiEngine, location } = this.props;
 
-    searchAPI(apiEngine)
-      .list({ page })
-      .catch((err) => {
-        dispatch(pushErrors(err));
-        throw err;
-      })
-      .then((json) => {
-        dispatch(setSearchItems(json));
-        dispatch(push({
-          pathname: location.pathname,
-          query: { page: json.page.current },
-        }));
-      });
+    // searchAPI(apiEngine)
+    //   .list({ page })
+    //   .catch((err) => {
+    //     dispatch(pushErrors(err));
+    //     throw err;
+    //   })
+    //   .then((json) => {
+    //     dispatch(setSearch(json));
+    //     dispatch(push({
+    //       pathname: location.pathname,
+    //       query: { page: json.page.current },
+    //     }));
+    //   });
   }
 
   render() {
@@ -67,17 +69,37 @@ class SearchPage extends Component {
 
     return (
       <PageLayout>
-        <SearchBar />
-        <ul>
-          {this.props.SearchItems.map((Search) =>
-            <SearchItem
-              key={Search._id}
-              onRemoveClick={this.handleRemoveClick.bind(this, Search._id)}
-              onSaveClick={this.handleSaveClick.bind(this, Search._id)}
-              text={Search.text}
-            />
-          )}
-        </ul>
+        <PageHeader>
+          Search
+        </PageHeader>
+        <Table striped>
+          <thead>
+            <tr>
+              <td>
+                <SearchBar
+                  apiEngine={this.props.apiEngine}
+                  dispatch={this.props.dispatch}
+                  type="name"
+                />
+              </td>
+              <td>
+                <SearchBar
+                  apiEngine={this.props.apiEngine}
+                  dispatch={this.props.dispatch}
+                  type="tag"
+                />
+              </td>
+            </tr>
+          </thead>
+          <tbody>
+            {this.props.SearchItems.map((search) =>
+              <tr>
+                {search.date}
+                <SearchItem />
+              </tr>
+            )}
+          </tbody>
+        </Table>
       </PageLayout>
     );
   }

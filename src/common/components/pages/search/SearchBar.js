@@ -1,98 +1,119 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import Autosuggest from 'react-autosuggest';
-
-const result = [
-  {
-    title: 'Talk',
-    results: [
-      {
-        name: 'Tat Gor Gong Talk',
-      },
-    ],
-  }, {
-    title: 'Camp',
-    results: [
-      {
-        name: 'BA OCamp',
-      }, {
-        name: 'Winter Trip',
-      }, {
-        name: 'CUTN',
-      },
-    ],
-  }, {
-    title: 'Gathering',
-    results: [
-      {
-        name: 'Candle Night',
-      }, {
-        name: 'Camp ReU',
-      },
-    ],
-  },
-];
+import searchAPI from '../../../api/search';
+import { setSearch } from '../../../actions/searchActions';
 
 // https://developer.mozilla.org/en/docs/Web/JavaScript/Guide/Regular_Expression
 // s#Using_Special_Characters
-function escapeRegexCharacters(str) {
-  return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-}
 
-function getSuggestions(value) {
-  const escapedValue = escapeRegexCharacters(value.trim());
+class SearchBar extends Component {
 
-  if (escapedValue === '') {
-    return [];
-  }
-
-  const regex = new RegExp('^' + escapedValue, 'i');
-
-  return result.map(section => {
-    return {
-      title: section.title,
-      results: section
-        .results
-        .filter(result => regex.test(result.name)),
-    };
-  }).filter(section => section.results.length > 0);
-}
-
-function getSuggestionValue(suggestion) {
-  return suggestion.name;
-}
-
-function renderSuggestion(suggestion) {
-  return (
-    <span>{suggestion.name}</span>
-  );
-}
-
-function renderSectionTitle(section) {
-  return (
-    <strong>{section.title}</strong>
-  );
-}
-
-function getSectionSuggestions(section) {
-  return section.results;
-}
-
-class SearchBar extends React.Component {
-  constructor() {
-    super();
-
+  constructor(props) {
+    super(props);
     this.state = {
+      result: [
+        {
+          title: 'Talk',
+          results: [
+            {
+              name: 'Tat Gor Gong Talk',
+            },
+          ],
+        }, {
+          title: 'Camp',
+          results: [
+            {
+              name: 'BA OCamp',
+            }, {
+              name: 'Winter Trip',
+            }, {
+              name: 'CUTN',
+            },
+          ],
+        }, {
+          title: 'Gathering',
+          results: [
+            {
+              name: 'Candle Night',
+            }, {
+              name: 'Camp ReU',
+            },
+          ],
+        },
+      ],
       value: '',
       suggestions: [],
     };
+    this.fetchResult = this._fetchResult.bind(this);
+  }
+
+  _fetchResult(value) {
+    let { apiEngine, type } = this.props;
+    searchAPI(apiEngine)
+      .list(value, type)
+      .catch((err) => {
+        pushErrors(err);
+        throw err;
+      })
+      .then((data) => {
+        setSearch(data);
+        this.setState({ result: data });
+        this.setState({ value: value });
+        this.onSuggestionsFetchRequested(this.state);
+      });
+  }
+
+  escapeRegexCharacters(str) {
+    return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  getSuggestions(value) {
+    // console.log('2' + value);
+    const escapedValue = this.escapeRegexCharacters(value.trim());
+
+    if (escapedValue === '') {
+      return [];
+    }
+
+    const regex = new RegExp('^' + escapedValue, 'i');
+    return this.state.result.map(section => {
+      return {
+        title: section.title,
+        results: section
+          .results
+          .filter(result => regex.test(result.name)),
+      };
+    }).filter(section => section.results.length > 0);
+  }
+
+  getSuggestionValue(suggestion) {
+    return suggestion.name;
+  }
+
+  renderSuggestion(suggestion) {
+    return (
+      <span>{suggestion.name}</span>
+    );
+  }
+
+  renderSectionTitle(section) {
+    return (
+      <strong>{section.title}</strong>
+    );
+  }
+
+  getSectionSuggestions(section) {
+    return section.results;
   }
 
   onChange = (event, {newValue, method}) => {
-    this.setState({value: newValue});
+    let { page } = this.props;
+    this.fetchResult(newValue);
   };
 
   onSuggestionsFetchRequested = ({value}) => {
-    this.setState({suggestions: getSuggestions(value)});
+    this.setState({suggestions: this.getSuggestions(value)});
   };
 
   onSuggestionsClearRequested = () => {
@@ -112,10 +133,10 @@ class SearchBar extends React.Component {
       suggestions={suggestions}
       onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
       onSuggestionsClearRequested={this.onSuggestionsClearRequested}
-      getSuggestionValue={getSuggestionValue}
-      renderSuggestion={renderSuggestion}
-      renderSectionTitle={renderSectionTitle}
-      getSectionSuggestions={getSectionSuggestions}
+      getSuggestionValue={this.getSuggestionValue}
+      renderSuggestion={this.renderSuggestion}
+      renderSectionTitle={this.renderSectionTitle}
+      getSectionSuggestions={this.getSectionSuggestions}
       inputProps={inputProps}/>);
   }
 }

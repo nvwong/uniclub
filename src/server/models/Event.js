@@ -13,6 +13,7 @@ let TagSchema = new mongoose.Schema({
 });
 
 let EventSchema = new mongoose.Schema({
+  name: String,
   date: Date,
   location: String,
   description: String,

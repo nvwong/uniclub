@@ -47,10 +47,10 @@ class SearchPage extends Component {
   }
 
   _fetchSearchItems(page) {
-    let { dispatch, apiEngine, location } = this.props;
-
+    let { dispatch, apiEngine, value } = this.props;
+    //
     // searchAPI(apiEngine)
-    //   .list({ page })
+    //   .search(value, { page })
     //   .catch((err) => {
     //     dispatch(pushErrors(err));
     //     throw err;
@@ -77,15 +77,11 @@ class SearchPage extends Component {
             <tr>
               <td>
                 <SearchBar
-                  apiEngine={this.props.apiEngine}
-                  dispatch={this.props.dispatch}
                   type="name"
                 />
               </td>
               <td>
                 <SearchBar
-                  apiEngine={this.props.apiEngine}
-                  dispatch={this.props.dispatch}
                   type="tag"
                 />
               </td>
@@ -105,11 +101,11 @@ class SearchPage extends Component {
   }
 };
 
-export default connect(({ apiEngine, pagination, entity }) => {
+export default connect(({ apiEngine, pagination, entity, search }) => {
   let { page } = pagination.search;
   let SearchPages = pagination.search.pages[page.current] || { ids: [] };
   let SearchItems = SearchPages.ids.map(id => entity.SearchItems[id]);
-
+  // console.log(pagination);
   return {
     apiEngine,
     SearchItems,

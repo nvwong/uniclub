@@ -15,3 +15,7 @@ export let userSchema = new Schema('users', {
 export let eventSchema = new Schema('events', {
   idAttribute: '_id',
 });
+
+export let searchSchema = new Schema('search', {
+  idAttribute: '_id',
+});

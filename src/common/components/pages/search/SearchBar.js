@@ -1,66 +1,44 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import { connect, store } from 'react-redux';
+import { push } from 'react-router-redux';
+import logger from 'redux-logger';
 import Autosuggest from 'react-autosuggest';
 import searchAPI from '../../../api/search';
+import Resources from '../../../constants/Resources';
+import { pushErrors } from '../../../actions/errorActions';
 import { setSearch } from '../../../actions/searchActions';
 
 // https://developer.mozilla.org/en/docs/Web/JavaScript/Guide/Regular_Expression
 // s#Using_Special_Characters
-
+// TODO: connect({search}) is undefined
+@connect(({ apiEngine, search, dispatch }) => ({ apiEngine, search, dispatch }))
 class SearchBar extends Component {
 
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.state = {
-      result: [
-        {
-          title: 'Talk',
-          results: [
-            {
-              name: 'Tat Gor Gong Talk',
-            },
-          ],
-        }, {
-          title: 'Camp',
-          results: [
-            {
-              name: 'BA OCamp',
-            }, {
-              name: 'Winter Trip',
-            }, {
-              name: 'CUTN',
-            },
-          ],
-        }, {
-          title: 'Gathering',
-          results: [
-            {
-              name: 'Candle Night',
-            }, {
-              name: 'Camp ReU',
-            },
-          ],
-        },
-      ],
+      result: [],
       value: '',
       suggestions: [],
     };
     this.fetchResult = this._fetchResult.bind(this);
   }
 
+  componentDidUpdate(prevProps) {
+    this.fetchResult(this.state.value);
+    console.log(this.props);
+  }
+
   _fetchResult(value) {
-    let { apiEngine, type } = this.props;
+    let { apiEngine, type, dispatch } = this.props;
     searchAPI(apiEngine)
       .list(value, type)
       .catch((err) => {
         pushErrors(err);
         throw err;
       })
-      .then((data) => {
-        setSearch(data);
-        this.setState({ result: data });
-        this.setState({ value: value });
-        this.onSuggestionsFetchRequested(this.state);
+      .then((json) => {
+        dispatch(setSearch(json));
       });
   }
 
@@ -69,7 +47,6 @@ class SearchBar extends Component {
   }
 
   getSuggestions(value) {
-    // console.log('2' + value);
     const escapedValue = this.escapeRegexCharacters(value.trim());
 
     if (escapedValue === '') {
@@ -109,7 +86,7 @@ class SearchBar extends Component {
 
   onChange = (event, {newValue, method}) => {
     let { page } = this.props;
-    this.fetchResult(newValue);
+    this.setState({value: newValue});
   };
 
   onSuggestionsFetchRequested = ({value}) => {

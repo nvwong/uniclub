@@ -109,4 +109,25 @@ export default {
       }));
     }));
   },
+
+  addParticipant(req, res) {
+    // test URL :localhost:3000/api/events/addParticipant/59c0b79d734d1d1df7f80bae
+    // header: application/json
+    // body: {
+    //  _id: 599a9843d31cdc6540282248
+    // }
+    Events.findByIdAndUpdate(
+      req.params.id,
+      { $push: { 'participants': req.body.participantId } },
+      { safe: true, upsert: true, new: true },
+      function(err, model) {
+        console.log(err);
+        if (err) {
+          res.json(err);
+        } else {
+          res.json(model);
+        }
+      }
+    );
+  },
 };

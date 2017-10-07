@@ -7,6 +7,8 @@ import form from './formReducer';
 import intl from './intlReducer';
 import entity from './entityReducer';
 import pagination from './paginationReducer';
+import search from './searchReducer';
+import todo from './todoReducer';
 
 const rootReducer = combineReducers({
   routing,
@@ -17,6 +19,8 @@ const rootReducer = combineReducers({
   intl,
   entity,
   pagination,
+  search,
+  todo,
 });
 
 export default rootReducer;

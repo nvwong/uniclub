@@ -9,6 +9,7 @@ import {
   syncHistoryWithStore,
   push,
 } from 'react-router-redux';
+import { createLogger } from 'redux-logger';
 import LocaleProvider from '../common/components/utils/LocaleProvider';
 import rootReducer from '../common/reducers';
 import getRoutes from '../common/routes';
@@ -28,7 +29,8 @@ let store = createStore(
   initialState,
   applyMiddleware(
     routerMiddleware(browserHistory),
-    thunk
+    thunk,
+    createLogger(), // TODO: logger is for debug only
   )
 );
 

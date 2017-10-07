@@ -139,7 +139,9 @@ export default ({ app }) => {
   app.post('/api/events', bodyParser.json, eventController.create);
   app.put('/api/events', bodyParser.json, eventController.update);
   app.delete('/api/events', eventController.remove);
+  app.put('/api/events/addParticipant/:id', bodyParser.json, eventController.addParticipant);
 
   // Search
   app.get('/api/search', searchController.list);
+  app.post('api/search', searchController.search);
 };

@@ -56,6 +56,24 @@ class EventList extends Component {
       });
   }
 
+  register(eventId) {
+    let { dispatch, apiEngine, location } = this.props;
+    console.log(this.props);
+    eventAPI(apiEngine)
+      .addParticipant(eventId)
+      .catch((err) => {
+        dispatch(pushErrors(err));
+        throw err;
+      })
+      .then((json) => {
+        dispatch(setEvents(json));
+        dispatch((push({
+          pathname: location.pathname,
+          query: { page: json.page.current },
+        })));
+      });
+  }
+
   render() {
     let { events, page } = this.props;
 
@@ -76,6 +94,7 @@ class EventList extends Component {
               <th>Quota</th>
               <th>State</th>
               <th>Participants</th>
+              <th>Register</th>
             </tr>
           </thead>
           <tbody>
@@ -91,6 +110,11 @@ class EventList extends Component {
                 <td>{oneEvent.quota}</td>
                 <td>{oneEvent.state}</td>
                 <td>{oneEvent.participants}</td>
+                {/* <td>
+                  <button onClick={this.register(oneEvent._id)}>
+                    Register
+                  </button>
+                </td> */}
               </tr>
             ))}
           </tbody>

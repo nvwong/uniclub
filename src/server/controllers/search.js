@@ -4,11 +4,21 @@ import filterAttribute from '../utils/filterAttribute';
 import Events from '../models/Event';
 
 export default{
+  // list(req, res) {
+  //   Events.find({})
+  //   .then((json) => {
+  //     res.json(json);
+  //     console.log(json);
+  //   });
+  // },
   list(req, res) {
     console.log(req.query);
     var result = [];
     if (req.query.value == '') {
-      res.json(result);
+      res.json({
+        _id: 0,
+        names: result,
+      });
     } else if (req.query.field == 'name') {
       Events
         .find({ name: new RegExp(req.query.value, 'i') })
@@ -16,17 +26,10 @@ export default{
         .limit(10)
         .exec(handleDbError(res)((data) => {
           if (data.length == 0) {
-            result = [
-              {
-                title: '',
-                results: [
-                  {
-                    name: '',
-                  },
-                ],
-              },
-            ];
-            res.json(result);
+            res.json({
+              _id: 0,
+              names: result,
+            });
           } else {
             let datum;
             let temp = '';
@@ -49,7 +52,10 @@ export default{
                 }
               }
             }
-            res.json(result);
+            res.json({
+              _id: 0,
+              names: result,
+            });
           }
         }));
     } else if (req.query.field == 'tag') {
@@ -79,36 +85,21 @@ export default{
             for (var i; i < data.length; i++) {
               result[0]['results'].push(data[i]['tag']);
             }
-            res.json(result);
+            res.json([{
+              _id: 1,
+              searchs: result,
+            }]);
           }
         }));
     }
   },
+  search(req, res) {
+    Events
+      .find({ name: req.value })
+      .limit(10)
+      .exec(handleDbError(res)(data => {
+        res.json(data);
+      }))
+    ;
+  },
 };
-
-// {
-//     "_id" : ObjectId("59b8df56f36d284a7e7c5f40"),
-//     "name" : "event1",
-//     "date" : "2017-08-22T05:40:38.653Z",
-//     "location" : "HKU",
-//     "description" : "hello world!",
-//     "tag" : {
-//         "name" : "testTag"
-//     },
-//     "organiser" : "nv",
-//     "catagory" : {
-//         "name" : "camp",
-//         "subcatagory" : {
-//             "name" : "subcab"
-//         }
-//     },
-//     "price" : NumberDecimal("20.0"),
-//     "quota" : NumberInt(50),
-//     "state" : "Open",
-//     "participants" : [
-//         {
-//             "_id" : ObjectId("59b8df56f36d284a7e7c5f40")
-//         }
-//     ],
-//     "posterURL" : "/img/default-avatar.png"
-// }

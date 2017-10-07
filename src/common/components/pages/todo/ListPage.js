@@ -111,7 +111,6 @@ class ListPage extends Component {
 
   _fetchTodos(page) {
     let { dispatch, apiEngine, location } = this.props;
-
     todoAPI(apiEngine)
       .list({ page })
       .catch((err) => {
@@ -171,7 +170,6 @@ class ListPage extends Component {
 
   render() {
     let { page } = this.props;
-
     return (
       <PageLayout>
         <PageHeader>Todo List ({`${page.current} / ${page.total}`})</PageHeader>

@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import paginatePlugin from './plugins/paginate';
 
-let CategorySchema = new mongoose.Schema({
+/* let CategorySchema = new mongoose.Schema({
   name: String,
   subcategories: {
     name: String,
@@ -10,16 +10,16 @@ let CategorySchema = new mongoose.Schema({
 
 let TagSchema = new mongoose.Schema({
   name: String,
-});
+}); */
 
 let EventSchema = new mongoose.Schema({
   name: String,
   date: Date,
   location: String,
   description: String,
-  tag: [TagSchema],
+  tag: [String],
   organiser: String,
-  category: [CategorySchema],
+  category: [String],
   price: Number,
   quota: Number,
   state: String,

@@ -76,7 +76,7 @@ class EventList extends Component {
 
   render() {
     let { events, page } = this.props;
-
+    console.log(events);
     return (
       <PageLayout>
         <PageHeader>Events List ({`${page.current} / ${page.total}`})
@@ -103,18 +103,24 @@ class EventList extends Component {
                 <td>{oneEvent.date}</td>
                 <td>{oneEvent.location}</td>
                 <td>{oneEvent.description}</td>
-                <td>{oneEvent.tag}</td>
+                <td>{oneEvent.tag.map((tag, index) => (
+                  <div>{tag}</div>
+                ))}</td>
                 <td>{oneEvent.organiser}</td>
-                <td>{oneEvent.category}</td>
+                <td>{oneEvent.category.map((cat, index) => (
+                  <div>{cat}</div>
+                ))}</td>
                 <td>{oneEvent.price}</td>
                 <td>{oneEvent.quota}</td>
                 <td>{oneEvent.state}</td>
-                <td>{oneEvent.participants}</td>
-                {/* <td>
-                  <button onClick={this.register(oneEvent._id)}>
+                <td>{oneEvent.participants.map((participant, index) => (
+                  <h1>{participant}</h1>
+                ))}</td>
+                <td>
+                  {/* <button onClick={this.register(oneEvent._id)}>
                     Register
-                  </button>
-                </td> */}
+                  </button> */}
+                </td>
               </tr>
             ))}
           </tbody>

@@ -107,6 +107,7 @@
     "mongoose": "^4.4.12",
     "morgan": "^1.7.0",
     "multer": "^1.1.0",
+    "node-gyp": "^3.6.2",
     "nodemailer": "^2.6.4",
     "normalizr": "^2.2.1",
     "object-assign": "^4.1.0",

@@ -3,10 +3,16 @@ import { connect, store } from 'react-redux';
 import { push } from 'react-router-redux';
 import logger from 'redux-logger';
 import Autosuggest from 'react-autosuggest';
-import searchAPI from '../../../api/search';
+// import searchAPI from '../../../api/search';
 import Resources from '../../../constants/Resources';
 import { pushErrors } from '../../../actions/errorActions';
-import { loadSuggestions, updateInputValue, clearSuggestions, loadSuggestionsBegin, maybeUpdateSuggestions } from '../../../actions/searchActions';
+import {
+  loadSuggestions,
+  updateInputValue,
+  clearSuggestions,
+  loadSuggestionsBegin,
+  maybeUpdateSuggestions,
+} from '../../../actions/searchActions';
 // import { setSearch } from '../../../actions/searchActions';
 
 function mapStateToProps(state) {
@@ -24,21 +30,15 @@ function mapStateToProps(state) {
 /* ---------- */
 
 // @connect(({ value, suggestions, isLoading, onChange, onSuggestionsFetchRequested, onSuggestionsClearRequested }) =>  ({ value, suggestions, isLoading, onChange, onSuggestionsFetchRequested, onSuggestionsClearRequested }))
-@connect(({ search, entity, dispatch, mapStateToProps }) => ({ search, entity, dispatch, mapStateToProps }))
+@connect(({ search, entity, dispatch, mapStateToProps }) =>
+({ search, entity, dispatch, mapStateToProps }))
 class SearchBar extends Component {
-
-  constructor(){
-    super();
-  }
 
   /* ----------- */
   /*    Utils    */
   /* ----------- */
 
   // https://developer.mozilla.org/en/docs/Web/JavaScript/Guide/Regular_Expressions#Using_Special_Characters
-  escapeRegexCharacters(str) {
-    return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-  }
 
   /* ----------------- */
   /*    MyComponent    */
@@ -54,17 +54,17 @@ class SearchBar extends Component {
     );
   }
 
-  onChange(event, { newValue }) {
+  onChange = (event, { newValue }) => {
     let { dispatch } = this.props;
     dispatch(updateInputValue(newValue));
   }
 
-  onSuggestionsFetchRequested({ value }) {
+  onSuggestionsFetchRequested = ({ value }) => {
     let { dispatch } = this.props;
     dispatch(loadSuggestions(value));
   }
 
-  onSuggestionsClearRequested() {
+  onSuggestionsClearRequested = () => {
     let { dispatch } = this.props;
     dispatch(clearSuggestions());
   }
@@ -78,7 +78,8 @@ class SearchBar extends Component {
       value,
       onChange: this.onChange,
     };
-    const status = (isLoading ? 'Loading...' : 'Type to load suggestions');
+
+    // const status = (isLoading ? 'Loading...' : 'Type to load suggestions');
 
     return (
       <Autosuggest

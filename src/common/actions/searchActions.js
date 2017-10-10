@@ -69,6 +69,9 @@ function randomDelay() {
   return 300 + Math.random() * 1000;
 }
 
+function escapeRegexCharacters(str) {
+  return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
 function getMatchingLanguages(value) {
   const escapedValue = escapeRegexCharacters(value.trim());
 
@@ -94,26 +97,26 @@ export const loadSuggestions = (value) => (dispatch, getState) => {
 
 export const updateInputValue = (value) => {
   return {
-    type: UPDATE_INPUT_VALUE,
+    type: ActionTypes.UPDATE_INPUT_VALUE,
     value,
   };
 };
 
 export const clearSuggestions = () => {
   return {
-    type: CLEAR_SUGGESTIONS,
+    type: ActionTypes.CLEAR_SUGGESTIONS,
   };
 };
 
 export const loadSuggestionsBegin = () => {
   return {
-    type: LOAD_SUGGESTIONS_BEGIN,
+    type: ActionTypes.LOAD_SUGGESTIONS_BEGIN,
   };
 };
 
 export const maybeUpdateSuggestions = (suggestions, value) => {
   return {
-    type: MAYBE_UPDATE_SUGGESTIONS,
+    type: ActionTypes.MAYBE_UPDATE_SUGGESTIONS,
     suggestions,
     value,
   };

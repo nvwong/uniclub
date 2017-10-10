@@ -14,28 +14,27 @@ export default{
   list(req, res) {
     console.log(req.query);
     var result = [];
-    if (req.query.value == '') {
+    if (req.query.value === '') {
       res.json({
         _id: 0,
         names: result,
       });
-    } else if (req.query.field == 'name') {
+    } else if (req.query.field === 'name') {
       Events
         .find({ name: new RegExp(req.query.value, 'i') })
         .sort({ date: 'asc' })
         .limit(10)
         .exec(handleDbError(res)((data) => {
-          if (data.length == 0) {
+          if (data.length === 0) {
             res.json({
               _id: 0,
               names: result,
             });
           } else {
-            let datum;
             let temp = '';
             let j = 0;
             for (var i = 0; i < data.length; i++) {
-              if (temp.indexOf(data[0]['organiser']) == -1) {
+              if (temp.indexOf(data[0]['organiser']) === -1) {
                 temp += ',' + data[i]['organiser'];
                 result[j++] = {
                   title: data[i]['organiser'],
@@ -44,8 +43,8 @@ export default{
               }
             }
             for (--j; j >= 0; j--) {
-              for (var i = 0; i < data.length; i++) {
-                if (result[j]['title'] == data[i]['organiser']) {
+              for (i = 0; i < data.length; i++) {
+                if (result[j]['title'] === data[i]['organiser']) {
                   result[j]['results'].push({
                     name: data[i]['name'],
                   });
@@ -58,14 +57,14 @@ export default{
             });
           }
         }));
-    } else if (req.query.field == 'tag') {
+    } else if (req.query.field === 'tag') {
       Events
         .distinct({ tag: new RegExp(req.query.value, 'i') })
         .select('tag')
         .sort({ date: 'asc' })
         .limit(10)
         .exec(handleDbError(res)((data) => {
-          if (data.length == 0) {
+          if (data.length === 0) {
             result = [{
               title: '',
               results: [

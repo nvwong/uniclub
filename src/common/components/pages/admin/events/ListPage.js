@@ -10,10 +10,10 @@ import eventAPI from '../../../../api/event';
 import { pushErrors } from '../../../../actions/errorActions';
 import { setCrrentPage } from '../../../../actions/pageActions';
 import { setEvents } from '../../../../actions/eventsActions';
-import PageLayout from '../../../layouts/SocPageLayout';
+import PageLayout from '../../../layouts/AdminPageLayout';
 import Pager from '../../../utils/BsPager';
 
-class EventListPage extends Component {
+class ListPage extends Component {
   constructor() {
     super();
     this.handlePageChange = this._handlePageChange.bind(this);
@@ -82,18 +82,18 @@ class EventListPage extends Component {
             {events.map((oneEvent) => (
               <tr key={oneEvent._id}>
                 <td>{oneEvent.date}</td>
-                <td>{oneEvent.Location}</td>
+                <td>{oneEvent.location}</td>
                 <td>{oneEvent.name}</td>
                 <td>{oneEvent.organiser}</td>
                 <td>{oneEvent.price}</td>
                 <td>{oneEvent.quota}</td>
                 <td>{oneEvent.state}</td>
                 <td>{oneEvent.participants}</td>
-                <td>
-                  // <Link to={'a'} params={ oneEvent }>
+               {/*  <td>
+                  <Link to={'a'} params={ oneEvent }>
                     <Button bsStyle="primary">Edit</Button>
-                  // </Link>
-                </td>
+                  </Link>
+                </td> */}
               </tr>
             ))}
           </tbody>
@@ -117,4 +117,4 @@ export default connect(({ apiEngine, pagination, entity }) => {
     events,
     page,
   };
-})(EventListPage);
+})(ListPage);

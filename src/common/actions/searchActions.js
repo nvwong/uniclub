@@ -4,75 +4,13 @@ import { searchSchema } from '../schemas';
 import Resources from '../constants/Resources';
 import { setEntities, removeEntities } from './entityActions';
 import { setPages, prependEntitiesIntoPage } from './pageActions';
+import { pushErrors } from './errorActions';
 import searchAPI from '../api/search';
-
-const languages = [
-  {
-    name: 'C',
-    year: 1972,
-  },
-  {
-    name: 'C#',
-    year: 2000,
-  },
-  {
-    name: 'C++',
-    year: 1983,
-  },
-  {
-    name: 'Clojure',
-    year: 2007,
-  },
-  {
-    name: 'Elm',
-    year: 2012,
-  },
-  {
-    name: 'Go',
-    year: 2009,
-  },
-  {
-    name: 'Haskell',
-    year: 1990,
-  },
-  {
-    name: 'Java',
-    year: 1995,
-  },
-  {
-    name: 'Javascript',
-    year: 1995,
-  },
-  {
-    name: 'Perl',
-    year: 1987,
-  },
-  {
-    name: 'PHP',
-    year: 1995,
-  },
-  {
-    name: 'Python',
-    year: 1991,
-  },
-  {
-    name: 'Ruby',
-    year: 1995,
-  },
-  {
-    name: 'Scala',
-    year: 2003,
-  },
-];
-
-function randomDelay() {
-  return 300 + Math.random() * 1000;
-}
 
 function escapeRegexCharacters(str) {
   return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
-function getMatchingLanguages(value) {
+function getMatchingLanguages(result, value) {
   const escapedValue = escapeRegexCharacters(value.trim());
 
   if (escapedValue === '') {
@@ -80,19 +18,32 @@ function getMatchingLanguages(value) {
   }
 
   const regex = new RegExp('^' + escapedValue, 'i');
-
-  return languages.filter(language => regex.test(language.name));
+  return result.map(section => {
+    return {
+      title: section.title,
+      results: section
+        .results
+        .filter(result => regex.test(result.name)),
+    };
+  }).filter(section => section.results.length > 0);
 }
 
-export const loadSuggestions = (value) => (dispatch, getState) => {
-  return dispatch => {
-    dispatch(loadSuggestionsBegin());
+export const loadSuggestions = (value, type) => (dispatch, getState) => {
+  let apiEngine = getState().apiEngine;
 
-    // Fake an AJAX call
-    setTimeout(() => {
-      dispatch(maybeUpdateSuggestions(getMatchingLanguages(value), value));
-    }, randomDelay());
-  };
+  dispatch(loadSuggestionsBegin());
+  // Fake an AJAX call
+  searchAPI(apiEngine)
+    .list(value, type)
+    .catch((err) => {
+      pushErrors(err);
+      throw err;
+    })
+    .then((json) => {
+      return dispatch(
+        maybeUpdateSuggestions(getMatchingLanguages(json, value), value)
+      );
+    });
 };
 
 export const updateInputValue = (value) => {
@@ -121,19 +72,3 @@ export const maybeUpdateSuggestions = (suggestions, value) => {
     value,
   };
 };
-
-//
-// export const setSearch = (res) => (dispatch, getState) => {
-//   // let normalized = normalize(res, arrayOf(searchSchema));
-//   console.log(res);
-//   // console.log(normalized);
-//
-//   dispatch({
-//     type: ActionTypes.SET_SEARCH,
-//     res,
-//   });
-// };
-
-// export const setValue = (value) => (dispatch, getState) => {
-//
-// };

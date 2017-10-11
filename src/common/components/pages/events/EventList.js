@@ -7,7 +7,7 @@ import Resources from '../../../constants/Resources';
 import eventAPI from '../../../api/event';
 import { pushErrors } from '../../../actions/errorActions';
 import { setCrrentPage } from '../../../actions/pageActions';
-import { setEvents } from '../../../actions/eventsActions';
+import { setEvents, addParticipant } from '../../../actions/eventsActions';
 import PageLayout from '../../layouts/PageLayout';
 import Pager from '../../utils/BsPager';
 
@@ -66,7 +66,7 @@ class EventList extends Component {
         throw err;
       })
       .then((json) => {
-        dispatch(setEvents(json));
+        dispatch(addParticipant(json));
         dispatch((push({
           pathname: location.pathname,
           query: { page: json.page.current },
@@ -76,6 +76,8 @@ class EventList extends Component {
 
   render() {
     let { events, page } = this.props;
+
+    let registerOnClick = this.register;
     console.log(events);
     return (
       <PageLayout>
@@ -103,23 +105,23 @@ class EventList extends Component {
                 <td>{oneEvent.date}</td>
                 <td>{oneEvent.location}</td>
                 <td>{oneEvent.description}</td>
-                <td>{oneEvent.tag.map((tag, index) => (
-                  <div>{tag}</div>
+                <td>{oneEvent.tag.map((tag) => (
+                  <div key={tag.name}>{tag.name}</div>
                 ))}</td>
                 <td>{oneEvent.organiser}</td>
-                <td>{oneEvent.category.map((cat, index) => (
-                  <div>{cat}</div>
+                <td>{oneEvent.category.map((category) => (
+                  <div key={category.name}>{category.name}</div>
                 ))}</td>
                 <td>{oneEvent.price}</td>
                 <td>{oneEvent.quota}</td>
                 <td>{oneEvent.state}</td>
-                <td>{oneEvent.participants.map((participant, index) => (
-                  <h1>{participant}</h1>
+                <td>{oneEvent.participants.map((participant) => (
+                  <div key={participant}>{participant}</div>
                 ))}</td>
                 <td>
-                  {/* <button onClick={this.register(oneEvent._id)}>
+                  <button onClick={registerOnClick.bind(this, oneEvent._id)}>
                     Register
-                  </button> */}
+                  </button>
                 </td>
               </tr>
             ))}

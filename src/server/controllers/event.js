@@ -121,7 +121,6 @@ export default {
       { $push: { 'participants': req.body.participantId } },
       { safe: true, upsert: true, new: true },
       function(err, model) {
-        console.log(err);
         if (err) {
           res.json(err);
         } else {

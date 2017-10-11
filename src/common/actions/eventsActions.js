@@ -22,3 +22,5 @@ export const addEvent = (oneEvent) => (dispatch, getState) => {
 };
 
 export const removeEvent = (id) => removeEntities(Resources.EVENTS, [id]);
+
+export const addParticipant = (id) => { return; };

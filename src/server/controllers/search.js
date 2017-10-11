@@ -4,21 +4,12 @@ import filterAttribute from '../utils/filterAttribute';
 import Events from '../models/Event';
 
 export default{
-  // list(req, res) {
-  //   Events.find({})
-  //   .then((json) => {
-  //     res.json(json);
-  //     console.log(json);
-  //   });
-  // },
+
   list(req, res) {
     console.log(req.query);
     var result = [];
     if (req.query.value === '') {
-      res.json({
-        _id: 0,
-        names: result,
-      });
+      res.json(result);
     } else if (req.query.field === 'name') {
       Events
         .find({ name: new RegExp(req.query.value, 'i') })
@@ -26,10 +17,7 @@ export default{
         .limit(10)
         .exec(handleDbError(res)((data) => {
           if (data.length === 0) {
-            res.json({
-              _id: 0,
-              names: result,
-            });
+            res.json(result);
           } else {
             let temp = '';
             let j = 0;
@@ -51,10 +39,7 @@ export default{
                 }
               }
             }
-            res.json({
-              _id: 0,
-              names: result,
-            });
+            res.json(result);
           }
         }));
     } else if (req.query.field === 'tag') {
@@ -84,10 +69,7 @@ export default{
             for (var i; i < data.length; i++) {
               result[0]['results'].push(data[i]['tag']);
             }
-            res.json([{
-              _id: 1,
-              searchs: result,
-            }]);
+            res.json(result);
           }
         }));
     }

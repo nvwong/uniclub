@@ -26,6 +26,7 @@ export const validate = (values) => {
 class AdminEditForm extends Component {
   constructor(props) {
     super(props);
+    // super();
     this.init = this._init.bind(this);
     this.handleSubmit = this._handleSubmit.bind(this);
   }
@@ -44,10 +45,10 @@ class AdminEditForm extends Component {
   }
 
   componentDidMount() {
-    let { dispatch, apiEngine } = this.props;
+    let { dispatch, apiEngine, user } = this.props;
 
     userAPI(apiEngine)
-      .readAny()
+      .readAny(user)
       .catch((err) => {
         dispatch(pushErrors(err));
         throw err;

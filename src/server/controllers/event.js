@@ -27,9 +27,10 @@ export default {
 
   create(req, res) {
     const oneEvent = Events({
+      name: req.body.name,
       date: req.body.date,
       location: req.body.location,
-      description: req.body.location,
+      description: req.body.description,
       tag: req.body.tag,
       organiser: req.body.organiser,
       category: req.body.category,
@@ -53,6 +54,7 @@ export default {
   update(req, res) {
     let { oneEvent } = req;
     let modifiedEvent = filterAttribute(req.body, [
+      'name',
       'date',
       'location',
       'description',

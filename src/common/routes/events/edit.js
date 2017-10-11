@@ -1,8 +1,8 @@
 export default (store) => ({
-  path: 'events',
+  path: 'edit',
   getComponent(nextState, cb) {
     require.ensure([], (require) => {
-      cb(null, require('../components/pages/events/EventList').default);
+      cb(null, require('../../components/pages/events/EditEventPage').default);
     });
   },
 });

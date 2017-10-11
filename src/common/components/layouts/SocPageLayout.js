@@ -7,12 +7,12 @@ import Nav from 'react-bootstrap/lib/Nav';
 import NavItem from 'react-bootstrap/lib/NavItem';
 import ErrorList from '../utils/ErrorList';
 
-const AdminPageLayout = ({ children, ...rest }) => (
+const SocPageLayout = ({ children, ...rest }) => (
   <div>
     <Navbar fluid>
       <Navbar.Header>
         <Navbar.Brand>
-          <a href="/admin">Admin System</a>
+          Society Admin System
         </Navbar.Brand>
         <Navbar.Toggle />
       </Navbar.Header>
@@ -23,9 +23,8 @@ const AdminPageLayout = ({ children, ...rest }) => (
       <Row>
         <Col md={2}>
           <Nav bsStyle="pills" stacked>
-            <NavItem eventKey={1} href="/admin/user">User</NavItem>
-            <NavItem eventKey={2} href="/admin/events">Events</NavItem>
-            <NavItem eventKey={3} href="/">Go back to site</NavItem>
+            <NavItem eventKey={1} href="/admin/events">Events</NavItem>
+            <NavItem eventKey={2} href="/">Go back to site</NavItem>
           </Nav>
         </Col>
         <Col md={10} {...rest}>
@@ -37,4 +36,4 @@ const AdminPageLayout = ({ children, ...rest }) => (
   </div>
 );
 
-export default AdminPageLayout;
+export default SocPageLayout;

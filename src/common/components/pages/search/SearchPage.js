@@ -11,7 +11,6 @@ import { setSearch } from '../../../actions/searchActions';
 import PageLayout from '../../layouts/PageLayout';
 import Pager from '../../utils/BsPager';
 import SearchBar from './SearchBar';
-// import Autosuggest from 'react-autosuggest';
 import './styles.css';
 import './styles.scss';
 
@@ -105,7 +104,7 @@ export default connect(({ apiEngine, pagination, entity, search }) => {
   let { page } = pagination.search;
   let SearchPages = pagination.search.pages[page.current] || { ids: [] };
   let SearchItems = SearchPages.ids.map(id => entity.SearchItems[id]);
-  // console.log(pagination);
+
   return {
     apiEngine,
     SearchItems,

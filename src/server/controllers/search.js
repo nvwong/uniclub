@@ -44,10 +44,10 @@ export default{
         }));
     } else if (req.query.field === 'tag') {
       Events
-        .distinct({ tag: new RegExp(req.query.value, 'i') })
-        .select('tag')
-        .sort({ date: 'asc' })
-        .limit(10)
+        .find({ 'tag.name': new RegExp(req.query.value, 'i') })
+        .distinct('tag.name')
+        // .sort({ date: 'asc' })
+        // .limit(10)
         .exec(handleDbError(res)((data) => {
           if (data.length === 0) {
             result = [{
@@ -67,7 +67,8 @@ export default{
               },
             ];
             for (var i; i < data.length; i++) {
-              result[0]['results'].push(data[i]['tag']);
+              console.log('data', data[i]);
+              result[0]['results'].push(data[i]);
             }
             res.json(result);
           }

@@ -40,6 +40,7 @@ export const loadSuggestions = (value, type) => (dispatch, getState) => {
       throw err;
     })
     .then((json) => {
+      console.log(json);
       return dispatch(
         maybeUpdateSuggestions(getMatchingLanguages(json, value), value)
       );

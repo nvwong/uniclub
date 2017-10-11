@@ -47,7 +47,7 @@ class SearchBar extends Component {
   }
 
   onChange = (event, { newValue }) => {
-    let { dispatch } = this.props;
+    let { dispatch, type } = this.props;
     dispatch(updateInputValue(newValue));
   }
 
@@ -57,7 +57,7 @@ class SearchBar extends Component {
   }
 
   onSuggestionsClearRequested = () => {
-    let { dispatch } = this.props;
+    let { dispatch, type } = this.props;
     dispatch(clearSuggestions());
   }
 

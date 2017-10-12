@@ -1,7 +1,8 @@
 import ActionTypes from '../constants/ActionTypes';
 
 const initialState = {
-  value: '',
+  eventSearchValue: '',
+  tagSearchValue: '',
   suggestions: [],
   isLoading: false,
 };
@@ -9,10 +10,17 @@ const initialState = {
 export default (state = initialState, action) => {
   switch (action.type) {
     case ActionTypes.UPDATE_INPUT_VALUE:
-      return {
-        ...state,
-        value: action.value,
-      };
+      if (action.searchFor === 'name') {
+        return {
+          ...state,
+          eventSearchValue: action.value,
+        };
+      } else {
+        return {
+          ...state,
+          tagSearchValue: action.value,
+        };
+      }
 
     case ActionTypes.CLEAR_SUGGESTIONS:
       return {
@@ -28,13 +36,13 @@ export default (state = initialState, action) => {
 
     case ActionTypes.MAYBE_UPDATE_SUGGESTIONS:
       // Ignore suggestions if input value changed
-      if (action.value !== state.value) {
+      if ((action.type === 'name' && action.value !== state.eventSearchValue) ||
+      (action.type === 'tag' && action.value !== state.tagSearchValue)) {
         return {
           ...state,
           isLoading: false,
         };
       }
-
       return {
         ...state,
         suggestions: action.suggestions,

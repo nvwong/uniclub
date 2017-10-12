@@ -23,6 +23,7 @@ class SearchPage extends Component {
     super();
     this.handlePageChange = this._handlePageChange.bind(this);
     this.fetchSearchItems = this._fetchSearchItems.bind(this);
+    this.handleSearchButtonClick = this._handleSearchButtonClick.bind(this);
   }
 
   componentDidMount() {
@@ -63,6 +64,11 @@ class SearchPage extends Component {
     //   });
   }
 
+  _handleSearchButtonClick(page) {
+    console.log(this.props);
+    let { dispatch, apiEngine, eventSearchValue, tagSearchValue } = this.props;
+  }
+
   render() {
     let { page } = this.props;
 
@@ -83,6 +89,11 @@ class SearchPage extends Component {
                 <SearchBar
                   type="tag"
                 />
+              </td>
+              <td>
+                <button onClick={this.handleSearchButtonClick}>
+                  Search
+                </button>
               </td>
             </tr>
           </thead>

@@ -40,17 +40,17 @@ export const loadSuggestions = (value, type) => (dispatch, getState) => {
       throw err;
     })
     .then((json) => {
-      console.log(json);
       return dispatch(
         maybeUpdateSuggestions(getMatchingLanguages(json, value), value)
       );
     });
 };
 
-export const updateInputValue = (value) => {
+export const updateInputValue = (value, type) => {
   return {
     type: ActionTypes.UPDATE_INPUT_VALUE,
-    value,
+    searchFor: type,
+    value: value,
   };
 };
 

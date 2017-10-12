@@ -49,12 +49,13 @@ export default{
         // .sort({ date: 'asc' })
         // .limit(10)
         .exec(handleDbError(res)((data) => {
+          console.log(data.length);
           if (data.length === 0) {
             result = [{
               title: '',
               results: [
                 {
-                  tag: '',
+                  name: '',
                 },
               ],
             }];
@@ -66,9 +67,11 @@ export default{
                 results: [],
               },
             ];
-            for (var i; i < data.length; i++) {
+            for (var i = 0; i < data.length; i++) {
               console.log('data', data[i]);
-              result[0]['results'].push(data[i]);
+              result[0]['results'].push({
+                name: data[i],
+              });
             }
             res.json(result);
           }

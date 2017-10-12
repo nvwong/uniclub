@@ -12,10 +12,11 @@ import {
 } from '../../../actions/searchActions';
 
 function mapStateToProps(state) {
-  const { value, suggestions, isLoading } = state;
+  const { eventSearchValue, tagSearchValue, suggestions, isLoading } = state.search;
 
   return {
-    value,
+    eventSearchValue,
+    tagSearchValue,
     suggestions,
     isLoading,
   };
@@ -48,7 +49,7 @@ class SearchBar extends Component {
 
   onChange = (event, { newValue }) => {
     let { dispatch, type } = this.props;
-    dispatch(updateInputValue(newValue));
+    dispatch(updateInputValue(newValue, type));
   }
 
   onSuggestionsFetchRequested = ({ value }) => {
@@ -57,16 +58,29 @@ class SearchBar extends Component {
   }
 
   onSuggestionsClearRequested = () => {
-    let { dispatch, type } = this.props;
+    let { dispatch } = this.props;
     dispatch(clearSuggestions());
   }
 
   render() {
-    const { value, suggestions, isLoading } = this.props.search;
+    const {
+      eventSearchValue,
+      tagSearchValue,
+      suggestions,
+      isLoading } = this.props.search;
+
+    let value = '', placeholder = '';
+    if (this.props.type === 'name') {
+      value = eventSearchValue;
+      placeholder = 'Event Name';
+    } else {
+      value = tagSearchValue;
+      placeholder = 'Tag';
+    }
 
     const inputProps = {
-      placeholder: 'Search Events',
-      value,
+      placeholder: placeholder,
+      value: value,
       onChange: this.onChange,
     };
 

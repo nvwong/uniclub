@@ -63,7 +63,7 @@ class ListPage extends Component {
 
     return (
       <PageLayout>
-      <PageHeader>Event List ({`${page.current} / ${page.total}`})</PageHeader>
+        <PageHeader>Event List ({`${page.current} / ${page.total}`})</PageHeader>
         <Table striped bordered>
           <thead>
             <tr>

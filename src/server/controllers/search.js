@@ -15,10 +15,7 @@ export default{
     console.log(req.query);
     var result = [];
     if (req.query.value === '') {
-      res.json({
-        _id: 0,
-        names: result,
-      });
+      res.json(result);
     } else if (req.query.field === 'name') {
       Events
         .find({ name: new RegExp(req.query.value, 'i') })
@@ -26,10 +23,7 @@ export default{
         .limit(10)
         .exec(handleDbError(res)((data) => {
           if (data.length === 0) {
-            res.json({
-              _id: 0,
-              names: result,
-            });
+            res.json(result);
           } else {
             let datum;
             let temp = '';
@@ -44,51 +38,47 @@ export default{
               }
             }
             for (--j; j >= 0; j--) {
-              for (var k = 0; i < data.length; i++) {
-                if (result[j]['title'] === data[k]['organiser']) {
+              for (var i = 0; i < data.length; i++) {
+                if (result[j]['title'] === data[i]['organiser']) {
                   result[j]['results'].push({
-                    name: data[k]['name'],
+                    name: data[i]['name'],
                   });
                 }
               }
             }
-            res.json({
-              _id: 0,
-              names: result,
-            });
+            res.json(result);
           }
         }));
     } else if (req.query.field === 'tag') {
       Events
-        .distinct({ tag: new RegExp(req.query.value, 'i') })
-        .select('tag')
-        .sort({ date: 'asc' })
-        .limit(10)
+        .find({ tag: new RegExp(req.query.value, 'i') })
+        .distinct('tag')
+        // .select('tag')
+        // .sort({ date: 'asc' })
+        // .limit(10)
         .exec(handleDbError(res)((data) => {
           if (data.length === 0) {
             result = [{
               title: '',
-              results: [
-                {
-                  tag: '',
-                },
-              ],
+              results: [],
             }];
             res.json(result);
           } else {
             result = [
               {
                 title: '',
-                results: [],
+                results: [{
+                  name: '',
+                }],
               },
             ];
-            for (var i; i < data.length; i++) {
-              result[0]['results'].push(data[i]['tag']);
+            for (var i = 0; i < data.length; i++) {
+              result[0]['results'].push({
+                name: data[i],
+              });
             }
-            res.json([{
-              _id: 1,
-              searchs: result,
-            }]);
+            console.log(result.results);
+            res.json(result);
           }
         }));
     }

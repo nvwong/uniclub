@@ -16,7 +16,7 @@ function getMatchingLanguages(result, value) {
   if (escapedValue === '') {
     return [];
   }
-
+  console.log(result);
   const regex = new RegExp('^' + escapedValue, 'i');
   return result.map(section => {
     return {

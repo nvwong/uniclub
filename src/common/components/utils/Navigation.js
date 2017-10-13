@@ -26,6 +26,7 @@ class Navigation extends Component {
   render() {
     let { isAuth, user } = this.props;
     let isAdmin = (user.role === Roles.ADMIN);
+    let isSociety = (user.role === Roles.SOCIETY);
 
     return (
       <Navbar staticTop>
@@ -62,7 +63,7 @@ class Navigation extends Component {
               <NavLink to="/userlist">
                 User List
               </NavLink>
-              <NavLink to="/events">
+              <NavLink to="/events/all">
                 Events
               </NavLink>
               <NavLink to="/search">
@@ -111,6 +112,10 @@ class Navigation extends Component {
                 {isAuth && isAdmin &&
                   <NavLink to="/admin">
                     Admin System
+                  </NavLink>}
+                {(isSociety) &&
+                  <NavLink to="/events/new">
+                    New Event
                   </NavLink>}
                 {isAuth &&
                   <NavLink to="/user/me">

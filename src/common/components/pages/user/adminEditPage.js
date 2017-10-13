@@ -5,7 +5,7 @@ import Row from 'react-bootstrap/lib/Row';
 import Col from 'react-bootstrap/lib/Col';
 import Button from 'react-bootstrap/lib/Button';
 import PageLayout from '../../layouts/PageLayout';
-import EditForm from '../../forms/user/EditForm';
+import AdminEditForm from '../../forms/user/AdminEditForm';
 import AvatarForm from '../../forms/user/AvatarForm';
 import ChangePasswordForm from '../../forms/user/ChangePasswordForm';
 
@@ -15,7 +15,7 @@ let adminEditPage = () => {
       <Row>
         <Col md={12}>
           <Link to="/admin/user">
-            <Button>Finish</Button>
+            <Button>Finish, Back to Admin</Button>
           </Link>
         </Col>
       </Row>
@@ -23,7 +23,7 @@ let adminEditPage = () => {
       <Row>
         <Col md={6}>
           <PageHeader>Edit Profile</PageHeader>
-          <EditForm />
+          <AdminEditForm />
         </Col>
         <Col md={6}>
           <PageHeader>Upload Avatar</PageHeader>

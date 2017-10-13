@@ -86,6 +86,7 @@ class EventList extends Component {
         <Table striped bordered>
           <thead>
             <tr>
+              <th>Name</th>
               <th>Date</th>
               <th>Location</th>
               <th>Description</th>
@@ -102,15 +103,16 @@ class EventList extends Component {
           <tbody>
             {events.map((oneEvent) => (
               <tr key={oneEvent._id}>
+                <td>{oneEvent.name}</td>
                 <td>{oneEvent.date}</td>
                 <td>{oneEvent.location}</td>
                 <td>{oneEvent.description}</td>
                 <td>{oneEvent.tag.map((tag) => (
-                  <div key={tag.name}>{tag.name}</div>
+                  <div key={tag}>{tag}</div>
                 ))}</td>
                 <td>{oneEvent.organiser}</td>
                 <td>{oneEvent.category.map((category) => (
-                  <div key={category.name}>{category.name}</div>
+                  <div key={category}>{category}</div>
                 ))}</td>
                 <td>{oneEvent.price}</td>
                 <td>{oneEvent.quota}</td>

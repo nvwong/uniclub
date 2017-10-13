@@ -63,7 +63,7 @@ export default ({ app }) => {
     userController.resetPassword
   );
   app.get('/api/users/logout', userController.logout);
-  app.get('/api/users/username/edit', authRequired, userController.readAny);
+  app.get('/api/users/:username', authRequired, userController.readAny);
   app.get('/api/users/me', authRequired, userController.readSelf);
   app.put('/api/users/me',
     authRequired,
@@ -75,7 +75,7 @@ export default ({ app }) => {
     authRequired,
     roleRequired([Roles.ADMIN]),
     bodyParser.json,
-    validate.form('user/EditForm'),
+    validate.form('user/AdminEditForm'),
     userController.update
   );
   app.put('/api/users/me/avatarURL',

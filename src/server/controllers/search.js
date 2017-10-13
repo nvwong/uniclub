@@ -4,12 +4,21 @@ import filterAttribute from '../utils/filterAttribute';
 import Events from '../models/Event';
 
 export default{
-
+  // list(req, res) {
+  //   Events.find({})
+  //   .then((json) => {
+  //     res.json(json);
+  //     console.log(json);
+  //   });
+  // },
   list(req, res) {
     console.log(req.query);
     var result = [];
     if (req.query.value === '') {
-      res.json(result);
+      res.json({
+        _id: 0,
+        names: result,
+      });
     } else if (req.query.field === 'name') {
       Events
         .find({ name: new RegExp(req.query.value, 'i') })
@@ -17,8 +26,12 @@ export default{
         .limit(10)
         .exec(handleDbError(res)((data) => {
           if (data.length === 0) {
-            res.json(result);
+            res.json({
+              _id: 0,
+              names: result,
+            });
           } else {
+            let datum;
             let temp = '';
             let j = 0;
             for (var i = 0; i < data.length; i++) {
@@ -31,31 +44,33 @@ export default{
               }
             }
             for (--j; j >= 0; j--) {
-              for (i = 0; i < data.length; i++) {
-                if (result[j]['title'] === data[i]['organiser']) {
+              for (var k = 0; i < data.length; i++) {
+                if (result[j]['title'] === data[k]['organiser']) {
                   result[j]['results'].push({
-                    name: data[i]['name'],
+                    name: data[k]['name'],
                   });
                 }
               }
             }
-            res.json(result);
+            res.json({
+              _id: 0,
+              names: result,
+            });
           }
         }));
     } else if (req.query.field === 'tag') {
       Events
-        .find({ 'tag.name': new RegExp(req.query.value, 'i') })
-        .distinct('tag.name')
-        // .sort({ date: 'asc' })
-        // .limit(10)
+        .distinct({ tag: new RegExp(req.query.value, 'i') })
+        .select('tag')
+        .sort({ date: 'asc' })
+        .limit(10)
         .exec(handleDbError(res)((data) => {
-          console.log(data.length);
           if (data.length === 0) {
             result = [{
               title: '',
               results: [
                 {
-                  name: '',
+                  tag: '',
                 },
               ],
             }];
@@ -67,13 +82,13 @@ export default{
                 results: [],
               },
             ];
-            for (var i = 0; i < data.length; i++) {
-              console.log('data', data[i]);
-              result[0]['results'].push({
-                name: data[i],
-              });
+            for (var i; i < data.length; i++) {
+              result[0]['results'].push(data[i]['tag']);
             }
-            res.json(result);
+            res.json([{
+              _id: 1,
+              searchs: result,
+            }]);
           }
         }));
     }

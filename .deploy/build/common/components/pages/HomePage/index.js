@@ -30,20 +30,9 @@ var HomePage = function HomePage(props) {
       _PageHeader2.default,
       null,
       'Express-React-HMR-Boilerplate'
-    ),
-    _react2.default.createElement(
-      'p',
-      { className: 'red-border' },
-      'This is the demo site for project',
-      ' ',
-      _react2.default.createElement(
-        'a',
-        { href: 'https://github.com/gocreating/express-react-hmr-boilerplate' },
-        'express-react-hmr-boilerplate'
-      )
     )
   );
 };
 
 exports.default = HomePage;
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImNvbXBvbmVudHMvcGFnZXMvSG9tZVBhZ2UvaW5kZXguanMiXSwibmFtZXMiOlsiSG9tZVBhZ2UiLCJwcm9wcyJdLCJtYXBwaW5ncyI6Ijs7Ozs7O0FBQUE7Ozs7QUFDQTs7OztBQUNBOzs7O0FBQ0E7O0FBQ0E7Ozs7QUFFQSxJQUFNQSxXQUFXLFNBQVhBLFFBQVcsQ0FBQ0MsS0FBRDtBQUFBLFNBQ2Y7QUFBQTtBQUFBLE1BQVksV0FBVSxnQkFBdEI7QUFDRTtBQUFBO0FBQUE7QUFBQTtBQUFBLEtBREY7QUFFRTtBQUFBO0FBQUEsUUFBRyxXQUFVLFlBQWI7QUFBQTtBQUNvQyxTQURwQztBQUVFO0FBQUE7QUFBQSxVQUFHLE1BQUssNkRBQVI7QUFBQTtBQUFBO0FBRkY7QUFGRixHQURlO0FBQUEsQ0FBakI7O2tCQVllRCxRIiwiZmlsZSI6ImNvbXBvbmVudHMvcGFnZXMvSG9tZVBhZ2UvaW5kZXguanMiLCJzb3VyY2VSb290IjoiLi9zcmMifQ==
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImNvbXBvbmVudHMvcGFnZXMvSG9tZVBhZ2UvaW5kZXguanMiXSwibmFtZXMiOlsiSG9tZVBhZ2UiLCJwcm9wcyJdLCJtYXBwaW5ncyI6Ijs7Ozs7O0FBQUE7Ozs7QUFDQTs7OztBQUNBOzs7O0FBQ0E7O0FBQ0E7Ozs7QUFFQSxJQUFNQSxXQUFXLFNBQVhBLFFBQVcsQ0FBQ0MsS0FBRDtBQUFBLFNBQ2Y7QUFBQTtBQUFBLE1BQVksV0FBVSxnQkFBdEI7QUFDRTtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBREYsR0FEZTtBQUFBLENBQWpCOztrQkFNZUQsUSIsImZpbGUiOiJjb21wb25lbnRzL3BhZ2VzL0hvbWVQYWdlL2luZGV4LmpzIiwic291cmNlUm9vdCI6Ii4vc3JjIn0=

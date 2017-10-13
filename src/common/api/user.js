@@ -20,7 +20,7 @@ export default (apiEngine) => ({
     })
   ),
   logout: () => apiEngine.get('/api/users/logout'),
-  readAny: (user) => apiEngine.get('/api/users/edit', { params: {user} }),
+  readAny: ({ user }) => apiEngine.get('/api/users/:username', { params: { user } }),
   readSelf: () => apiEngine.get('/api/users/me'),
   update: (user) => apiEngine.put('/api/users/me', { data: user }),
   // adminUpdate: (user) => apiEngine.put('/api/users/*', { data: user }),

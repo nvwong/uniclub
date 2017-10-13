@@ -15,6 +15,7 @@ export default (store) => ({
     require.ensure([], (require) => {
       cb(null, [
         require('./user').default(store),
+        require('./events').default(store),
       ]);
     });
   },

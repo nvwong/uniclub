@@ -1,7 +1,7 @@
 import Roles from '../../constants/Roles';
 
 export default (store) => ({
-  path: '/edit',
+  path: ':username/edit',
   getComponent(nextState, cb) {
     require.ensure([], (require) => {
       cb(null, require('../../components/pages/user/adminEditPage').default);
